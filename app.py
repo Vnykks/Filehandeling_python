@@ -1,98 +1,95 @@
 import os 
 
-
+# Function to create a file
 def create_file(filename):
     try: 
-        with open ('filename','x') as f:
-            print (f"File name {filename} :create sucessfully")
+        with open(filename, 'x') as f:  # Fixed quotes around filename
+            print(f"File '{filename}' created successfully")
     except FileExistsError:
-        print(F'filename {filename} alreaedy exist')
+        print(f"File '{filename}' already exists")
+    except Exception as e:  # Fixed typo in exception variable
+        print(f"An error occurred: {e}")
 
-    except Exception as E :
-        print('An Error Occured')
-
-
-def View_file ():
+# Function to view all files in the current directory
+def view_files():
     files = os.listdir()
-    if not files :
-        Print("No File Found in current directory")
+    if not files:
+        print("No files found in the current directory")  # Fixed function name to 'print'
+    else:
+        print('Files in directory:')
+        for file in files:  # Fixed variable shadowing and misused variable name
+            print(file)
 
-    else :
-        print('file is directory')
-        for files in files :
-            print(files)
-
-
-def Delet_file (filename):
-    try :
+# Function to delete a file
+def delete_file(filename):
+    try:
         os.remove(filename)
-        print (f'this file {filename}: sucessfully removed from directory')
-
+        print(f"File '{filename}' successfully removed from directory")
     except FileNotFoundError:
-        print("file not found in directory")
-    except Exception as E:
-        print("unknow Error")
+        print(f"File '{filename}' not found in directory")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
-def read_file (filename):
+# Function to read a file
+def read_file(filename):
     try:
-        with open('sample.txt','r')as f:
+        with open(filename, 'r') as f:  # Fixed hard-coded file name
             content = f.read()
-            print(f"content of '{filename}': \n{content}")
-    
-    except FileNotFoundError :
-        print(f"this file '{filename}': Does not exist")
-
-    except Exception as E :
-        print('An Error Occured')
-
-
-def Edit_file (filename):
-    try:
-        with open('sample.txt','a') as f:
-            content = input ('Enter the data you wants to add')
-            f.write (content+"\n")
-            print ("Updated sucessfully to {filename}")
-    
+            print(f"Content of '{filename}':\n{content}")
     except FileNotFoundError:
-        print(f"this file '{filename}':Does not exist")
-    except Exception as E :
-        print('An Error Occured')
+        print(f"File '{filename}' does not exist")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
+# Function to edit a file
+def edit_file(filename):
+    try:
+        with open(filename, 'a') as f:  # Fixed hard-coded file name
+            content = input('Enter the data you want to add: ')
+            f.write(content + "\n")
+            print(f"Updated successfully to '{filename}'")
+    except FileNotFoundError:
+        print(f"File '{filename}' does not exist")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
-def main ():
-    while True :
-        print('File Management app')
-        print('1:Create file')
-        print('2:view all file')
-        print('3:Delete file')
-        print('4:read file')
-        print('5:Edit file')
-        print('6: Exit')
+# Main function for menu-driven interface
+def main():
+    while True:
+        print("\nFile Management App")
+        print("1: Create file")
+        print("2: View all files")
+        print("3: Delete file")
+        print("4: Read file")
+        print("5: Edit file")
+        print("6: Exit")
 
-        choice = input ('Enter your choice(1-6) = ')
+        choice = input("Enter your choice (1-6): ")
 
         if choice == '1':
-            filename = input("Enter the file name you wants to create = ") 
-            create_file = (filename)
+            filename = input("Enter the file name you want to create: ")
+            create_file(filename)  # Corrected function call
         elif choice == '2':
-            View_all_files()
+            view_files()  # Corrected function call
         elif choice == '3':
-            filename = input ("Enter the file name you wants to Delete ")
-            Delet_file = (filename)
+            filename = input("Enter the file name you want to delete: ")
+            delete_file(filename)  # Corrected function call
         elif choice == '4':
-            filename = input("Enter the file name you wants to Read")
-            read_file = (filename)
+            filename = input("Enter the file name you want to read: ")
+            read_file(filename)  # Corrected function call
         elif choice == '5':
-            filename = input("Enter the file name you wants to Edit")
-            Edit_file = (filename)
+            filename = input("Enter the file name you want to edit: ")
+            edit_file(filename)  # Corrected function call
         elif choice == '6':
-            print(" App is closing")
+            print("App is closing")
             break
-        else :
-            print("Invalid input please choose given option")
+        else:
+            print("Invalid input, please choose a valid option")
 
-if __name__ == "__main__" :
+# Run main function
+if __name__ == "__main__":
     main()
+
 
 
 
